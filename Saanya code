@@ -1,0 +1,43 @@
+import pandas as pd
+
+%matplotlib inline
+# activate plot theme
+import qeds
+qeds.themes.mpl_style();
+
+pd.__version__
+
+url = "https://dataverse.harvard.edu/api/access/datafile/:persistentId?persistentId=doi:10.7910/DVN/25545/TDXVVG"
+raw_data = pd.read_csv(url)
+
+raw_data.head()
+
+#1] sdata to get totalvolume, country, filename, and Hacked
+raw_data = pd.read_csv(url)
+log_all = (
+     raw_data
+    .reset_index()
+    .pivot_table(index="filename", values=["totalvolume", "Country","Hacked"]) #won't show all values
+)
+log_all.head()
+#log_all.drop(['exchange','firstday','lastday','volratio','volratiousd','lifetime','censored','reimbursed','Origin','cv''avgmktsh','maxmktsh'inplace=True,axis=1])
+
+#2] compliance data to get 'all' value (works)
+
+import pandas as pd
+url = "https://dataverse.harvard.edu/api/access/datafile/:persistentId?persistentId=doi:10.7910/DVN/25545/UUBPHW"
+compl_data = pd.read_csv(url)
+compl_data.head()
+compl_all = (
+     compl_data
+    .reset_index()
+    .pivot_table(index="Country", values="All") #won't show all values
+)
+compl_all.head()
+
+
+#3] pdmerge both data sets
+
+#pd.merge(log_all, compl_all, on='Country')
+
+
