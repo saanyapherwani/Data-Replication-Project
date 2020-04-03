@@ -31,7 +31,7 @@ compl_data.head()
 compl_all = (
      compl_data
     .reset_index()
-    .pivot_table(index="Country", values="All") #won't show all values
+    .pivot_table(index="Country", values="All") 
 )
 compl_all.head()
 
